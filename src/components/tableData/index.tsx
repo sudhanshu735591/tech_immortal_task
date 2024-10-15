@@ -23,22 +23,43 @@ function TableData() {
         }
     }, [handleChangeData]);
 
+    // useEffect(() => {
+    //     setFormData(duplicateData);
+
+    //     if (handleFilterData) {
+    //         const isCheckedFilter = handleFilterData.toLowerCase();
+    //         let bool: Boolean;
+    //         if (isCheckedFilter === "active") {
+    //             bool = true;
+    //         } else if (isCheckedFilter === "inactive") {
+    //             bool = false;
+    //         }
+    //         const filtered = formData.filter(item => item.isChecked === bool);
+    //         setFormData(filtered);
+    //     } else {
+    //         setFormData(duplicateData);
+    //     }
+    // }, [handleFilterData]);
+    useEffect(() => {
+        setFormData(duplicateData);
+    }, [duplicateData]);
+    
     useEffect(() => {
         if (handleFilterData) {
             const isCheckedFilter = handleFilterData.toLowerCase();
-            let bool: Boolean;
+            let bool: boolean;
             if (isCheckedFilter === "active") {
                 bool = true;
             } else if (isCheckedFilter === "inactive") {
                 bool = false;
             }
-            const filtered = formData.filter(item => item.isChecked === bool);
+            const filtered = duplicateData.filter(item => item.isChecked === bool);
             setFormData(filtered);
         } else {
             setFormData(duplicateData);
         }
-    }, [handleFilterData]);
-
+    }, [handleFilterData, duplicateData]); 
+    
     useEffect(() => {
         const storedData = JSON.parse(localStorage.getItem("formData") || '[]');
         setFormData(storedData);
